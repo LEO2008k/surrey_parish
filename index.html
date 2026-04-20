@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surrey Parish Clone - Portfolio Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            background: white;
+            padding: 4rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        h1 { color: #1A2B4C; margin-bottom: 1rem; }
+        p { color: #666; margin-bottom: 3rem; line-height: 1.6; font-size: 1.1rem; }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 600px) {
+            .options { grid-template-columns: 1fr; }
+        }
+        
+        .btn-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid #eaeaea;
+        }
+        .btn-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-color: #C89E3A;
+        }
+        .btn-original { background-color: #f9f9f9; }
+        .btn-modern { background-color: #1A2B4C; color: white; }
+        .btn-modern h2 { color: white; }
+        .btn-modern p { color: #b3c2d6; }
+        .btn-card h2 { margin: 0 0 1rem 0; font-size: 1.5rem; color: #1A2B4C; }
+        .btn-card p { margin: 0; font-size: 0.95rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Website Re-imagined: Cross Parish</h1>
+        <p>This project demonstrates a full front-end recreation of the Exaltation of the Holy Cross Parish website. Choose a version below to explore.</p>
+        
+        <div class="options">
+            <a href="original/index.html" class="btn-card btn-original">
+                <h2>Original Clone</h2>
+                <p>The exact replica of the live site as it existed. (Requires running clone_all.py locally to download assets).</p>
+            </a>
+            
+            <a href="modernized/index.html" class="btn-card btn-modern">
+                <h2>Modernized Re-design</h2>
+                <p>My custom hand-coded HTML/CSS/JS recreation with a premium UI, responsive design, and modern semantic structure.</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
