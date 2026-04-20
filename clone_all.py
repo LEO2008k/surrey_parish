@@ -3,12 +3,21 @@ import urllib.request
 import urllib.parse
 from html.parser import HTMLParser
 
+# We specify all the menu items to download them maximally so nothing links to the live site!
 PAGES = {
     'index.html': 'https://crossparish.ca/',
     'about.html': 'https://crossparish.ca/about/',
     'gallery.html': 'https://crossparish.ca/gallery/',
     'contact.html': 'https://crossparish.ca/contact/',
-    'schedule.html': 'https://crossparish.ca/home-cross-parish/divine-liturgical-schedule/'
+    'schedule.html': 'https://crossparish.ca/home-cross-parish/divine-liturgical-schedule/',
+    'food-sales.html': 'https://crossparish.ca/food-sales/',
+    'directory.html': 'https://crossparish.ca/member-directory/',
+    'donation.html': 'https://crossparish.ca/donation/',
+    'news.html': 'https://crossparish.ca/news/',
+    'ucwlc.html': 'https://crossparish.ca/about/ucwlc/',
+    'calendar.html': 'https://crossparish.ca/about/parish-calendar/',
+    'history.html': 'https://crossparish.ca/about/history-2/',
+    'bulletins.html': 'https://crossparish.ca/home-cross-parish/bulletins/'
 }
 
 class ResourceParser(HTMLParser):
@@ -28,10 +37,18 @@ class ResourceParser(HTMLParser):
         for k, v in attrs:
             if tag == 'a' and k == 'href' and v:
                 # Rewrite absolute links to local HTML files if they match our known pages
+                rewritten = False
                 for local_file, target_url in PAGES.items():
                     if v == target_url or v == target_url.rstrip('/') or v == target_url + '/':
                         v = local_file
+                        rewritten = True
                         break
+                
+                # If it still points to crossparish.ca but we aren't downloading it, 
+                # let's just make it a local anchor to prevent escaping the repo.
+                if not rewritten and 'crossparish.ca' in v:
+                    v = 'index.html'
+
             modified_attrs.append(f'{k}="{v}"' if v is not None else k)
                     
         attr_str = " ".join(modified_attrs)
@@ -61,7 +78,7 @@ class ResourceParser(HTMLParser):
         return "".join(self.modified_html_snippets)
 
 def main():
-    headers = {'User-Agent': 'Mozilla/5.0'}
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'}
     
     for filename, url in PAGES.items():
         print(f"[{filename}] Downloading {url}...")
